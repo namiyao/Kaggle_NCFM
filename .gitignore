@@ -9,6 +9,7 @@ bin-release/
 .settings/
 .DS_Store
 /data/
+/*/checkpoints/
 
 # Executables
 *.swf
