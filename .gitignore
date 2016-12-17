@@ -9,7 +9,6 @@ bin-release/
 .settings/
 .DS_Store
 /data/
-/*/checkpoints/
 /*/.ipynb_checkpoints
 /*/.DS_store
 
