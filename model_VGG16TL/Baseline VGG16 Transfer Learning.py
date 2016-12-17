@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[1]:
+# In[2]:
 
 import os, random, glob
 import numpy as np
@@ -16,8 +16,8 @@ from matplotlib import ticker
 import seaborn as sns
 get_ipython().magic(u'matplotlib inline')
 
-from keras.models import Sequential
-from keras.layers import Convolution2D, BatchNormalization, LeakyReLU, GlobalAveragePooling2D, Flatten, Dropout, Dense
+from keras.models import Sequential, Model
+from keras.layers import GlobalAveragePooling2D, Flatten, Dropout, Dense
 from keras.optimizers import Adam
 from keras.callbacks import EarlyStopping, ModelCheckpoint, ReduceLROnPlateau, TensorBoard
 from keras.preprocessing.image import ImageDataGenerator
@@ -30,8 +30,8 @@ from keras import backend as K
 TRAIN_DIR = '../data/train/'
 TEST_DIR = '../data/test_stg1/'
 FISH_CLASSES = ['ALB', 'BET', 'DOL', 'LAG', 'NoF', 'OTHER', 'SHARK', 'YFT']
-ROWS = 256
-COLS = 256
+ROWS = 224
+COLS = 224
 BatchSize = 64
 LearningRate = 1e-4
 
@@ -97,72 +97,6 @@ else:
 X_train, X_valid, y_train, y_valid = train_test_split(X_train, y_train, test_size=0.2, random_state=None, stratify=y_train)
 
 
-# In[4]:
-
-#create my VGG16-alike model
-
-optimizer = Adam(lr=LearningRate)
-
-def create_model():
-    model = Sequential()
-
-    model.add(Convolution2D(32, 3, 3, init='he_normal', border_mode='same', dim_ordering='tf', input_shape=(ROWS, COLS, 3)))
-    model.add(BatchNormalization())
-    model.add(LeakyReLU(alpha=0.33))
-    model.add(Convolution2D(32, 3, 3, init='he_normal', border_mode='same', dim_ordering='tf', subsample=(2, 2)))
-    model.add(BatchNormalization())
-    model.add(LeakyReLU(alpha=0.33))
-    
-    model.add(Convolution2D(64, 3, 3, init='he_normal', border_mode='same', dim_ordering='tf'))
-    model.add(BatchNormalization())
-    model.add(LeakyReLU(alpha=0.33))
-    model.add(Convolution2D(64, 3, 3, init='he_normal', border_mode='same', dim_ordering='tf', subsample=(2, 2)))
-    model.add(BatchNormalization())
-    model.add(LeakyReLU(alpha=0.33))
-
-    model.add(Convolution2D(128, 3, 3, init='he_normal', border_mode='same', dim_ordering='tf'))
-    model.add(BatchNormalization())
-    model.add(LeakyReLU(alpha=0.33))
-    model.add(Convolution2D(128, 3, 3, init='he_normal', border_mode='same', dim_ordering='tf'))
-    model.add(BatchNormalization())
-    model.add(LeakyReLU(alpha=0.33))
-    model.add(Convolution2D(128, 3, 3, init='he_normal', border_mode='same', dim_ordering='tf', subsample=(2, 2)))
-    model.add(BatchNormalization())
-    model.add(LeakyReLU(alpha=0.33))
-    
-    model.add(Convolution2D(256, 3, 3, init='he_normal', border_mode='same', dim_ordering='tf'))
-    model.add(BatchNormalization())
-    model.add(LeakyReLU(alpha=0.33))
-    model.add(Convolution2D(256, 3, 3, init='he_normal', border_mode='same', dim_ordering='tf'))
-    model.add(BatchNormalization())
-    model.add(LeakyReLU(alpha=0.33))
-    model.add(Convolution2D(256, 3, 3, init='he_normal', border_mode='same', dim_ordering='tf', subsample=(2, 2)))
-    model.add(BatchNormalization())
-    model.add(LeakyReLU(alpha=0.33))
-    
-    model.add(Convolution2D(256, 3, 3, init='he_normal', border_mode='same', dim_ordering='tf'))
-    model.add(BatchNormalization())
-    model.add(LeakyReLU(alpha=0.33))
-    model.add(Convolution2D(256, 3, 3, init='he_normal', border_mode='same', dim_ordering='tf'))
-    model.add(BatchNormalization())
-    model.add(LeakyReLU(alpha=0.33))
-    model.add(Convolution2D(256, 3, 3, init='he_normal', border_mode='same', dim_ordering='tf', subsample=(2, 2)))
-    model.add(BatchNormalization())
-    model.add(LeakyReLU(alpha=0.33))
-    
-    #model.add(AveragePooling2D(pool_size=(7, 7), dim_ordering='tf'))
-    model.add(GlobalAveragePooling2D(dim_ordering='tf'))
-    model.add(Flatten())
-    model.add(Dense(256, init='glorot_normal', activation='relu'))
-    model.add(Dropout(0.5))
-    model.add(Dense(256, init='glorot_normal', activation='relu'))
-    model.add(Dropout(0.5))
-    model.add(Dense(len(FISH_CLASSES), init='glorot_normal', activation='softmax'))
-
-    model.compile(loss='categorical_crossentropy', optimizer=optimizer)
-    return model
-
-
 # In[6]:
 
 #data preprocessing
@@ -200,11 +134,68 @@ learningrate_schedule = ReduceLROnPlateau(monitor='val_loss', factor=0.2, patien
 tensorboard = TensorBoard(log_dir='./logs', histogram_freq=10, write_graph=True, write_images=True)
 
 
+# In[4]:
+
+#stg1 training
+
+from keras.applications.vgg16 import VGG16
+
+optimizer = Adam(lr=LearningRate)
+
+base_model = VGG16(weights='imagenet', include_top=False)
+
+x = base_model.output
+x = GlobalAveragePooling2D()(x)
+x = Flatten()(x)
+x = Dense(256, init='glorot_normal', activation='relu')(x)
+#x = Dropout(0.5)(x)
+x = Dense(256, init='glorot_normal', activation='relu')(x)
+#x = Dropout(0.5)(x)
+predictions = Dense(len(FISH_CLASSES), init='glorot_normal', activation='softmax')(x)
+
+# this is the model we will train
+model = Model(input=base_model.input, output=predictions)
+
+# first: train only the top layers (which were randomly initialized)
+# i.e. freeze all convolutional VGG16 layers
+for layer in base_model.layers:
+    layer.trainable = False
+
+# compile the model (should be done *after* setting layers to non-trainable)
+model.compile(optimizer=optimizer, loss='categorical_crossentropy')
+
+# train the model on the new data for a few epochs
+model.fit_generator(train_generator, samples_per_epoch=len(X_train), nb_epoch=300, verbose=1, 
+                    callbacks=[early_stopping, model_checkpoint, learningrate_schedule, tensorboard], 
+                    validation_data=valid_generator, nb_val_samples=len(X_valid), nb_worker=3, pickle_safe=True)
+
+
 # In[ ]:
 
-#training model
+#stg2 training
 
-model = create_model()
+# at this point, the top layers are well trained and we can start fine-tuning
+# convolutional layers from inception V3. We will freeze the bottom N layers
+# and train the remaining top layers.
+
+# let's visualize layer names and layer indices to see how many layers
+# we should freeze:
+for i, layer in enumerate(base_model.layers):
+   print(i, layer.name)
+
+# we chose to train the top 2 inception blocks, i.e. we will freeze
+# the first 172 layers and unfreeze the rest:
+for layer in model.layers[:14]:
+   layer.trainable = False
+for layer in model.layers[14:]:
+   layer.trainable = True
+
+# we need to recompile the model for these modifications to take effect
+# we use SGD with a low learning rate
+model.compile(optimizer=optimizer, loss='categorical_crossentropy')
+
+# we train our model again (this time fine-tuning the top 2 inception blocks
+# alongside the top Dense layers
 model.fit_generator(train_generator, samples_per_epoch=len(X_train), nb_epoch=300, verbose=1, 
                     callbacks=[early_stopping, model_checkpoint, learningrate_schedule, tensorboard], 
                     validation_data=valid_generator, nb_val_samples=len(X_valid), nb_worker=3, pickle_safe=True)
@@ -212,7 +203,7 @@ model.fit_generator(train_generator, samples_per_epoch=len(X_train), nb_epoch=30
 
 # In[8]:
 
-#resume training
+#resume stg1 training
 
 from keras.models import load_model
 
@@ -225,6 +216,11 @@ model = load_model(files[index])
 model.fit_generator(train_generator, samples_per_epoch=len(X_train), nb_epoch=300, verbose=1, 
                     callbacks=[early_stopping, model_checkpoint, learningrate_schedule, tensorboard], 
                     validation_data=valid_generator, nb_val_samples=len(X_valid), nb_worker=3, pickle_safe=True)
+
+
+# In[1]:
+
+
 
 
 # In[ ]:
