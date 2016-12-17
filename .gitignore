@@ -10,6 +10,9 @@ bin-release/
 .DS_Store
 /data/
 /*/checkpoints/
+/*/logs
+/*/.ipynb_checkpoints
+/*/.DS_store
 
 # Executables
 *.swf

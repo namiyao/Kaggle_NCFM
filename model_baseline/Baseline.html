@@ -11794,7 +11794,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="n">TRAIN_DIR</span> <span class="o">=</span> <span class="s1">&#39;../data/train/&#39;</span>
@@ -11802,7 +11802,8 @@ div#notebook {
 <span class="n">FISH_CLASSES</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ALB&#39;</span><span class="p">,</span> <span class="s1">&#39;BET&#39;</span><span class="p">,</span> <span class="s1">&#39;DOL&#39;</span><span class="p">,</span> <span class="s1">&#39;LAG&#39;</span><span class="p">,</span> <span class="s1">&#39;NoF&#39;</span><span class="p">,</span> <span class="s1">&#39;OTHER&#39;</span><span class="p">,</span> <span class="s1">&#39;SHARK&#39;</span><span class="p">,</span> <span class="s1">&#39;YFT&#39;</span><span class="p">]</span>
 <span class="n">ROWS</span> <span class="o">=</span> <span class="mi">256</span>
 <span class="n">COLS</span> <span class="o">=</span> <span class="mi">256</span>
-<span class="n">BatchSize</span><span class="o">=</span><span class="mi">64</span>
+<span class="n">BatchSize</span> <span class="o">=</span> <span class="mi">64</span>
+<span class="n">LearningRate</span> <span class="o">=</span> <span class="mf">5e-4</span>
 </pre></div>
 
 </div>
@@ -11812,7 +11813,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#Loading data</span>
@@ -11884,11 +11885,7 @@ div#notebook {
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Loading data from original images. Generating data_train_256_256.pickle.
-Processed 0 of 3777
-Processed 1000 of 3777
-Processed 2000 of 3777
-Processed 3000 of 3777
+<pre>Exist data_train_256_256.pickle. Loading data from file.
 </pre>
 </div>
 </div>
@@ -11899,12 +11896,12 @@ Processed 3000 of 3777
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#create model</span>
 
-<span class="n">optimizer</span> <span class="o">=</span> <span class="n">Adam</span><span class="p">(</span><span class="n">lr</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">)</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">Adam</span><span class="p">(</span><span class="n">lr</span><span class="o">=</span><span class="n">LearningRate</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">create_model</span><span class="p">():</span>
     <span class="n">model</span> <span class="o">=</span> <span class="n">Sequential</span><span class="p">()</span>
@@ -11968,7 +11965,7 @@ Processed 3000 of 3777
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#data preprocessing</span>
@@ -12000,7 +11997,7 @@ Processed 3000 of 3777
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#callbacks</span>
@@ -12014,7 +12011,7 @@ Processed 3000 of 3777
     <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
 <span class="n">model_checkpoint</span> <span class="o">=</span> <span class="n">ModelCheckpoint</span><span class="p">(</span><span class="n">filepath</span><span class="o">=</span><span class="s1">&#39;./checkpoints/weights.{epoch:03d}-{val_loss:.4f}.hdf5&#39;</span><span class="p">,</span> <span class="n">monitor</span><span class="o">=</span><span class="s1">&#39;val_loss&#39;</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">save_best_only</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">save_weights_only</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">)</span>
         
-<span class="n">learningrate_schedule</span> <span class="o">=</span> <span class="n">ReduceLROnPlateau</span><span class="p">(</span><span class="n">monitor</span><span class="o">=</span><span class="s1">&#39;val_loss&#39;</span><span class="p">,</span> <span class="n">factor</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">patience</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">0.0001</span><span class="p">,</span> <span class="n">cooldown</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">min_lr</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">learningrate_schedule</span> <span class="o">=</span> <span class="n">ReduceLROnPlateau</span><span class="p">(</span><span class="n">monitor</span><span class="o">=</span><span class="s1">&#39;val_loss&#39;</span><span class="p">,</span> <span class="n">factor</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">patience</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span> <span class="n">cooldown</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">min_lr</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
 <span class="n">tensorboard</span> <span class="o">=</span> <span class="n">TensorBoard</span><span class="p">(</span><span class="n">log_dir</span><span class="o">=</span><span class="s1">&#39;./logs&#39;</span><span class="p">,</span> <span class="n">histogram_freq</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">write_graph</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">write_images</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
@@ -12026,202 +12023,19 @@ Processed 3000 of 3777
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#training model</span>
 
 <span class="n">model</span> <span class="o">=</span> <span class="n">create_model</span><span class="p">()</span>
-<span class="n">model</span><span class="o">.</span><span class="n">fit_generator</span><span class="p">(</span><span class="n">train_generator</span><span class="p">,</span> <span class="n">samples_per_epoch</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span> <span class="n">nb_epoch</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> 
+<span class="n">hist</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit_generator</span><span class="p">(</span><span class="n">train_generator</span><span class="p">,</span> <span class="n">samples_per_epoch</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span> <span class="n">nb_epoch</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> 
                     <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">early_stopping</span><span class="p">,</span> <span class="n">model_checkpoint</span><span class="p">,</span> <span class="n">learningrate_schedule</span><span class="p">,</span> <span class="n">tensorboard</span><span class="p">],</span> 
                     <span class="n">validation_data</span><span class="o">=</span><span class="n">valid_generator</span><span class="p">,</span> <span class="n">nb_val_samples</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">X_valid</span><span class="p">),</span> <span class="n">nb_worker</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">pickle_safe</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="c1">#print(hist.history)</span>
 </pre></div>
 
 </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Epoch 1/300
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">ResourceExhaustedError</span>                    Traceback (most recent call last)
-<span class="ansi-green-fg">/opt/anaconda3/lib/python3.5/site-packages/tensorflow/python/client/session.py</span> in <span class="ansi-cyan-fg">_do_call</span><span class="ansi-blue-fg">(self, fn, *args)</span>
-<span class="ansi-green-intense-fg ansi-bold">    971</span>     <span class="ansi-green-fg">try</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 972</span><span class="ansi-red-fg">       </span><span class="ansi-green-fg">return</span> fn<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">*</span>args<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    973</span>     <span class="ansi-green-fg">except</span> errors<span class="ansi-blue-fg">.</span>OpError <span class="ansi-green-fg">as</span> e<span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">/opt/anaconda3/lib/python3.5/site-packages/tensorflow/python/client/session.py</span> in <span class="ansi-cyan-fg">_run_fn</span><span class="ansi-blue-fg">(session, feed_dict, fetch_list, target_list, options, run_metadata)</span>
-<span class="ansi-green-intense-fg ansi-bold">    953</span>                                  feed_dict<span class="ansi-blue-fg">,</span> fetch_list<span class="ansi-blue-fg">,</span> target_list<span class="ansi-blue-fg">,</span>
-<span class="ansi-green-fg">--&gt; 954</span><span class="ansi-red-fg">                                  status, run_metadata)
-</span><span class="ansi-green-intense-fg ansi-bold">    955</span> 
-
-<span class="ansi-green-fg">/opt/anaconda3/lib/python3.5/contextlib.py</span> in <span class="ansi-cyan-fg">__exit__</span><span class="ansi-blue-fg">(self, type, value, traceback)</span>
-<span class="ansi-green-intense-fg ansi-bold">     65</span>             <span class="ansi-green-fg">try</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">---&gt; 66</span><span class="ansi-red-fg">                 </span>next<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>gen<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     67</span>             <span class="ansi-green-fg">except</span> StopIteration<span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">/opt/anaconda3/lib/python3.5/site-packages/tensorflow/python/framework/errors.py</span> in <span class="ansi-cyan-fg">raise_exception_on_not_ok_status</span><span class="ansi-blue-fg">()</span>
-<span class="ansi-green-intense-fg ansi-bold">    462</span>           compat<span class="ansi-blue-fg">.</span>as_text<span class="ansi-blue-fg">(</span>pywrap_tensorflow<span class="ansi-blue-fg">.</span>TF_Message<span class="ansi-blue-fg">(</span>status<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span>
-<span class="ansi-green-fg">--&gt; 463</span><span class="ansi-red-fg">           pywrap_tensorflow.TF_GetCode(status))
-</span><span class="ansi-green-intense-fg ansi-bold">    464</span>   <span class="ansi-green-fg">finally</span><span class="ansi-blue-fg">:</span>
-
-<span class="ansi-red-fg">ResourceExhaustedError</span>: OOM when allocating tensor with shape[32,33,33,256]
-	 [[Node: Conv2D_22 = Conv2D[T=DT_FLOAT, data_format=&#34;NHWC&#34;, padding=&#34;SAME&#34;, strides=[1, 2, 2, 1], use_cudnn_on_gpu=true, _device=&#34;/job:localhost/replica:0/task:0/gpu:0&#34;](sub_186, convolution2d_23_W/read)]]
-	 [[Node: moments_25/sufficient_statistics/Shape/_125 = _Recv[client_terminated=false, recv_device=&#34;/job:localhost/replica:0/task:0/cpu:0&#34;, send_device=&#34;/job:localhost/replica:0/task:0/gpu:0&#34;, send_device_incarnation=1, tensor_name=&#34;edge_8113_moments_25/sufficient_statistics/Shape&#34;, tensor_type=DT_INT32, _device=&#34;/job:localhost/replica:0/task:0/cpu:0&#34;]()]]
-
-During handling of the above exception, another exception occurred:
-
-<span class="ansi-red-fg">ResourceExhaustedError</span>                    Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-12-6cda823fde8a&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
-<span class="ansi-green-intense-fg ansi-bold">      4</span> model.fit_generator(train_generator, samples_per_epoch=len(X_train), nb_epoch=300, verbose=1, 
-<span class="ansi-green-intense-fg ansi-bold">      5</span>                     callbacks<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">[</span>early_stopping<span class="ansi-blue-fg">,</span> model_checkpoint<span class="ansi-blue-fg">,</span> learningrate_schedule<span class="ansi-blue-fg">,</span> tensorboard<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">,</span>
-<span class="ansi-green-fg">----&gt; 6</span><span class="ansi-red-fg">                     validation_data=valid_generator, nb_val_samples=len(X_valid), nb_worker=1)
-</span>
-<span class="ansi-green-fg">/opt/anaconda3/lib/python3.5/site-packages/keras/models.py</span> in <span class="ansi-cyan-fg">fit_generator</span><span class="ansi-blue-fg">(self, generator, samples_per_epoch, nb_epoch, verbose, callbacks, validation_data, nb_val_samples, class_weight, max_q_size, nb_worker, pickle_safe, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">    905</span>                                         max_q_size<span class="ansi-blue-fg">=</span>max_q_size<span class="ansi-blue-fg">,</span>
-<span class="ansi-green-intense-fg ansi-bold">    906</span>                                         nb_worker<span class="ansi-blue-fg">=</span>nb_worker<span class="ansi-blue-fg">,</span>
-<span class="ansi-green-fg">--&gt; 907</span><span class="ansi-red-fg">                                         pickle_safe=pickle_safe)
-</span><span class="ansi-green-intense-fg ansi-bold">    908</span> 
-<span class="ansi-green-intense-fg ansi-bold">    909</span>     def evaluate_generator(self, generator, val_samples,
-
-<span class="ansi-green-fg">/opt/anaconda3/lib/python3.5/site-packages/keras/engine/training.py</span> in <span class="ansi-cyan-fg">fit_generator</span><span class="ansi-blue-fg">(self, generator, samples_per_epoch, nb_epoch, verbose, callbacks, validation_data, nb_val_samples, class_weight, max_q_size, nb_worker, pickle_safe, initial_epoch)</span>
-<span class="ansi-green-intense-fg ansi-bold">   1449</span>                     outs = self.train_on_batch(x, y,
-<span class="ansi-green-intense-fg ansi-bold">   1450</span>                                                sample_weight<span class="ansi-blue-fg">=</span>sample_weight<span class="ansi-blue-fg">,</span>
-<span class="ansi-green-fg">-&gt; 1451</span><span class="ansi-red-fg">                                                class_weight=class_weight)
-</span><span class="ansi-green-intense-fg ansi-bold">   1452</span>                 <span class="ansi-green-fg">except</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">   1453</span>                     _stop<span class="ansi-blue-fg">.</span>set<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">/opt/anaconda3/lib/python3.5/site-packages/keras/engine/training.py</span> in <span class="ansi-cyan-fg">train_on_batch</span><span class="ansi-blue-fg">(self, x, y, sample_weight, class_weight)</span>
-<span class="ansi-green-intense-fg ansi-bold">   1224</span>             ins <span class="ansi-blue-fg">=</span> x <span class="ansi-blue-fg">+</span> y <span class="ansi-blue-fg">+</span> sample_weights
-<span class="ansi-green-intense-fg ansi-bold">   1225</span>         self<span class="ansi-blue-fg">.</span>_make_train_function<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-fg">-&gt; 1226</span><span class="ansi-red-fg">         </span>outputs <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>train_function<span class="ansi-blue-fg">(</span>ins<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">   1227</span>         <span class="ansi-green-fg">if</span> len<span class="ansi-blue-fg">(</span>outputs<span class="ansi-blue-fg">)</span> <span class="ansi-blue-fg">==</span> <span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">   1228</span>             <span class="ansi-green-fg">return</span> outputs<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span>
-
-<span class="ansi-green-fg">/opt/anaconda3/lib/python3.5/site-packages/keras/backend/tensorflow_backend.py</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-fg">(self, inputs)</span>
-<span class="ansi-green-intense-fg ansi-bold">   1094</span>             feed_dict<span class="ansi-blue-fg">[</span>tensor<span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">=</span> value
-<span class="ansi-green-intense-fg ansi-bold">   1095</span>         session <span class="ansi-blue-fg">=</span> get_session<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-fg">-&gt; 1096</span><span class="ansi-red-fg">         </span>updated <span class="ansi-blue-fg">=</span> session<span class="ansi-blue-fg">.</span>run<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>outputs <span class="ansi-blue-fg">+</span> <span class="ansi-blue-fg">[</span>self<span class="ansi-blue-fg">.</span>updates_op<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">,</span> feed_dict<span class="ansi-blue-fg">=</span>feed_dict<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">   1097</span>         <span class="ansi-green-fg">return</span> updated<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">:</span>len<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>outputs<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">]</span>
-<span class="ansi-green-intense-fg ansi-bold">   1098</span> 
-
-<span class="ansi-green-fg">/opt/anaconda3/lib/python3.5/site-packages/tensorflow/python/client/session.py</span> in <span class="ansi-cyan-fg">run</span><span class="ansi-blue-fg">(self, fetches, feed_dict, options, run_metadata)</span>
-<span class="ansi-green-intense-fg ansi-bold">    715</span>     <span class="ansi-green-fg">try</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    716</span>       result = self._run(None, fetches, feed_dict, options_ptr,
-<span class="ansi-green-fg">--&gt; 717</span><span class="ansi-red-fg">                          run_metadata_ptr)
-</span><span class="ansi-green-intense-fg ansi-bold">    718</span>       <span class="ansi-green-fg">if</span> run_metadata<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    719</span>         proto_data <span class="ansi-blue-fg">=</span> tf_session<span class="ansi-blue-fg">.</span>TF_GetBuffer<span class="ansi-blue-fg">(</span>run_metadata_ptr<span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">/opt/anaconda3/lib/python3.5/site-packages/tensorflow/python/client/session.py</span> in <span class="ansi-cyan-fg">_run</span><span class="ansi-blue-fg">(self, handle, fetches, feed_dict, options, run_metadata)</span>
-<span class="ansi-green-intense-fg ansi-bold">    913</span>     <span class="ansi-green-fg">if</span> final_fetches <span class="ansi-green-fg">or</span> final_targets<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    914</span>       results = self._do_run(handle, final_targets, final_fetches,
-<span class="ansi-green-fg">--&gt; 915</span><span class="ansi-red-fg">                              feed_dict_string, options, run_metadata)
-</span><span class="ansi-green-intense-fg ansi-bold">    916</span>     <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    917</span>       results <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">]</span>
-
-<span class="ansi-green-fg">/opt/anaconda3/lib/python3.5/site-packages/tensorflow/python/client/session.py</span> in <span class="ansi-cyan-fg">_do_run</span><span class="ansi-blue-fg">(self, handle, target_list, fetch_list, feed_dict, options, run_metadata)</span>
-<span class="ansi-green-intense-fg ansi-bold">    963</span>     <span class="ansi-green-fg">if</span> handle <span class="ansi-green-fg">is</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    964</span>       return self._do_call(_run_fn, self._session, feed_dict, fetch_list,
-<span class="ansi-green-fg">--&gt; 965</span><span class="ansi-red-fg">                            target_list, options, run_metadata)
-</span><span class="ansi-green-intense-fg ansi-bold">    966</span>     <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    967</span>       return self._do_call(_prun_fn, self._session, handle, feed_dict,
-
-<span class="ansi-green-fg">/opt/anaconda3/lib/python3.5/site-packages/tensorflow/python/client/session.py</span> in <span class="ansi-cyan-fg">_do_call</span><span class="ansi-blue-fg">(self, fn, *args)</span>
-<span class="ansi-green-intense-fg ansi-bold">    983</span>         <span class="ansi-green-fg">except</span> KeyError<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    984</span>           <span class="ansi-green-fg">pass</span>
-<span class="ansi-green-fg">--&gt; 985</span><span class="ansi-red-fg">       </span><span class="ansi-green-fg">raise</span> type<span class="ansi-blue-fg">(</span>e<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">(</span>node_def<span class="ansi-blue-fg">,</span> op<span class="ansi-blue-fg">,</span> message<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    986</span> 
-<span class="ansi-green-intense-fg ansi-bold">    987</span>   <span class="ansi-green-fg">def</span> _extend_graph<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-
-<span class="ansi-red-fg">ResourceExhaustedError</span>: OOM when allocating tensor with shape[32,33,33,256]
-	 [[Node: Conv2D_22 = Conv2D[T=DT_FLOAT, data_format=&#34;NHWC&#34;, padding=&#34;SAME&#34;, strides=[1, 2, 2, 1], use_cudnn_on_gpu=true, _device=&#34;/job:localhost/replica:0/task:0/gpu:0&#34;](sub_186, convolution2d_23_W/read)]]
-	 [[Node: moments_25/sufficient_statistics/Shape/_125 = _Recv[client_terminated=false, recv_device=&#34;/job:localhost/replica:0/task:0/cpu:0&#34;, send_device=&#34;/job:localhost/replica:0/task:0/gpu:0&#34;, send_device_incarnation=1, tensor_name=&#34;edge_8113_moments_25/sufficient_statistics/Shape&#34;, tensor_type=DT_INT32, _device=&#34;/job:localhost/replica:0/task:0/cpu:0&#34;]()]]
-
-Caused by op &#39;Conv2D_22&#39;, defined at:
-  File &#34;/opt/anaconda3/lib/python3.5/runpy.py&#34;, line 184, in _run_module_as_main
-    &#34;__main__&#34;, mod_spec)
-  File &#34;/opt/anaconda3/lib/python3.5/runpy.py&#34;, line 85, in _run_code
-    exec(code, run_globals)
-  File &#34;/opt/anaconda3/lib/python3.5/site-packages/ipykernel/__main__.py&#34;, line 3, in &lt;module&gt;
-    app.launch_new_instance()
-  File &#34;/opt/anaconda3/lib/python3.5/site-packages/traitlets/config/application.py&#34;, line 653, in launch_instance
-    app.start()
-  File &#34;/opt/anaconda3/lib/python3.5/site-packages/ipykernel/kernelapp.py&#34;, line 474, in start
-    ioloop.IOLoop.instance().start()
-  File &#34;/opt/anaconda3/lib/python3.5/site-packages/zmq/eventloop/ioloop.py&#34;, line 162, in start
-    super(ZMQIOLoop, self).start()
-  File &#34;/opt/anaconda3/lib/python3.5/site-packages/tornado/ioloop.py&#34;, line 887, in start
-    handler_func(fd_obj, events)
-  File &#34;/opt/anaconda3/lib/python3.5/site-packages/tornado/stack_context.py&#34;, line 275, in null_wrapper
-    return fn(*args, **kwargs)
-  File &#34;/opt/anaconda3/lib/python3.5/site-packages/zmq/eventloop/zmqstream.py&#34;, line 440, in _handle_events
-    self._handle_recv()
-  File &#34;/opt/anaconda3/lib/python3.5/site-packages/zmq/eventloop/zmqstream.py&#34;, line 472, in _handle_recv
-    self._run_callback(callback, msg)
-  File &#34;/opt/anaconda3/lib/python3.5/site-packages/zmq/eventloop/zmqstream.py&#34;, line 414, in _run_callback
-    callback(*args, **kwargs)
-  File &#34;/opt/anaconda3/lib/python3.5/site-packages/tornado/stack_context.py&#34;, line 275, in null_wrapper
-    return fn(*args, **kwargs)
-  File &#34;/opt/anaconda3/lib/python3.5/site-packages/ipykernel/kernelbase.py&#34;, line 276, in dispatcher
-    return self.dispatch_shell(stream, msg)
-  File &#34;/opt/anaconda3/lib/python3.5/site-packages/ipykernel/kernelbase.py&#34;, line 228, in dispatch_shell
-    handler(stream, idents, msg)
-  File &#34;/opt/anaconda3/lib/python3.5/site-packages/ipykernel/kernelbase.py&#34;, line 390, in execute_request
-    user_expressions, allow_stdin)
-  File &#34;/opt/anaconda3/lib/python3.5/site-packages/ipykernel/ipkernel.py&#34;, line 196, in do_execute
-    res = shell.run_cell(code, store_history=store_history, silent=silent)
-  File &#34;/opt/anaconda3/lib/python3.5/site-packages/ipykernel/zmqshell.py&#34;, line 501, in run_cell
-    return super(ZMQInteractiveShell, self).run_cell(*args, **kwargs)
-  File &#34;/opt/anaconda3/lib/python3.5/site-packages/IPython/core/interactiveshell.py&#34;, line 2717, in run_cell
-    interactivity=interactivity, compiler=compiler, result=result)
-  File &#34;/opt/anaconda3/lib/python3.5/site-packages/IPython/core/interactiveshell.py&#34;, line 2821, in run_ast_nodes
-    if self.run_code(code, result):
-  File &#34;/opt/anaconda3/lib/python3.5/site-packages/IPython/core/interactiveshell.py&#34;, line 2881, in run_code
-    exec(code_obj, self.user_global_ns, self.user_ns)
-  File &#34;&lt;ipython-input-12-6cda823fde8a&gt;&#34;, line 3, in &lt;module&gt;
-    model = create_model()
-  File &#34;&lt;ipython-input-10-0c3ce037bbc2&gt;&#34;, line 38, in create_model
-    model.add(Convolution2D(256, 3, 3, border_mode=&#39;same&#39;, dim_ordering=&#39;tf&#39;, subsample=(2, 2)))
-  File &#34;/opt/anaconda3/lib/python3.5/site-packages/keras/models.py&#34;, line 324, in add
-    output_tensor = layer(self.outputs[0])
-  File &#34;/opt/anaconda3/lib/python3.5/site-packages/keras/engine/topology.py&#34;, line 517, in __call__
-    self.add_inbound_node(inbound_layers, node_indices, tensor_indices)
-  File &#34;/opt/anaconda3/lib/python3.5/site-packages/keras/engine/topology.py&#34;, line 571, in add_inbound_node
-    Node.create_node(self, inbound_layers, node_indices, tensor_indices)
-  File &#34;/opt/anaconda3/lib/python3.5/site-packages/keras/engine/topology.py&#34;, line 155, in create_node
-    output_tensors = to_list(outbound_layer.call(input_tensors[0], mask=input_masks[0]))
-  File &#34;/opt/anaconda3/lib/python3.5/site-packages/keras/layers/convolutional.py&#34;, line 466, in call
-    filter_shape=self.W_shape)
-  File &#34;/opt/anaconda3/lib/python3.5/site-packages/keras/backend/tensorflow_backend.py&#34;, line 1683, in conv2d
-    x = tf.nn.conv2d(x, kernel, strides, padding=padding)
-  File &#34;/opt/anaconda3/lib/python3.5/site-packages/tensorflow/python/ops/gen_nn_ops.py&#34;, line 394, in conv2d
-    data_format=data_format, name=name)
-  File &#34;/opt/anaconda3/lib/python3.5/site-packages/tensorflow/python/framework/op_def_library.py&#34;, line 749, in apply_op
-    op_def=op_def)
-  File &#34;/opt/anaconda3/lib/python3.5/site-packages/tensorflow/python/framework/ops.py&#34;, line 2380, in create_op
-    original_op=self._default_original_op, op_def=op_def)
-  File &#34;/opt/anaconda3/lib/python3.5/site-packages/tensorflow/python/framework/ops.py&#34;, line 1298, in __init__
-    self._traceback = _extract_stack()
-
-ResourceExhaustedError (see above for traceback): OOM when allocating tensor with shape[32,33,33,256]
-	 [[Node: Conv2D_22 = Conv2D[T=DT_FLOAT, data_format=&#34;NHWC&#34;, padding=&#34;SAME&#34;, strides=[1, 2, 2, 1], use_cudnn_on_gpu=true, _device=&#34;/job:localhost/replica:0/task:0/gpu:0&#34;](sub_186, convolution2d_23_W/read)]]
-	 [[Node: moments_25/sufficient_statistics/Shape/_125 = _Recv[client_terminated=false, recv_device=&#34;/job:localhost/replica:0/task:0/cpu:0&#34;, send_device=&#34;/job:localhost/replica:0/task:0/gpu:0&#34;, send_device_incarnation=1, tensor_name=&#34;edge_8113_moments_25/sufficient_statistics/Shape&#34;, tensor_type=DT_INT32, _device=&#34;/job:localhost/replica:0/task:0/cpu:0&#34;]()]]
-</pre>
-</div>
-</div>
-
 </div>
 </div>
 

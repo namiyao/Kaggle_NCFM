@@ -25,17 +25,18 @@ from keras.utils import np_utils
 from keras import backend as K
 
 
-# In[8]:
+# In[3]:
 
 TRAIN_DIR = '../data/train/'
 TEST_DIR = '../data/test_stg1/'
 FISH_CLASSES = ['ALB', 'BET', 'DOL', 'LAG', 'NoF', 'OTHER', 'SHARK', 'YFT']
 ROWS = 256
 COLS = 256
-BatchSize=64
+BatchSize = 64
+LearningRate = 5e-4
 
 
-# In[3]:
+# In[4]:
 
 #Loading data
 
@@ -96,11 +97,11 @@ else:
 X_train, X_valid, y_train, y_valid = train_test_split(X_train, y_train, test_size=0.2, random_state=22, stratify=y_train)
 
 
-# In[10]:
+# In[5]:
 
 #create model
 
-optimizer = Adam(lr=1e-4)
+optimizer = Adam(lr=LearningRate)
 
 def create_model():
     model = Sequential()
@@ -157,7 +158,7 @@ def create_model():
     return model
 
 
-# In[5]:
+# In[6]:
 
 #data preprocessing
 
@@ -181,7 +182,7 @@ valid_datagen = ImageDataGenerator(rescale=1./255)
 valid_generator = valid_datagen.flow(X_valid, y_valid, batch_size=BatchSize, shuffle=True, seed=22)
 
 
-# In[11]:
+# In[8]:
 
 #callbacks
 
@@ -194,19 +195,20 @@ for f in files:
     os.remove(f)
 model_checkpoint = ModelCheckpoint(filepath='./checkpoints/weights.{epoch:03d}-{val_loss:.4f}.hdf5', monitor='val_loss', verbose=1, save_best_only=False, save_weights_only=False, mode='auto')
         
-learningrate_schedule = ReduceLROnPlateau(monitor='val_loss', factor=0.2, patience=10, verbose=1, mode='auto', epsilon=0.0001, cooldown=0, min_lr=0)
+learningrate_schedule = ReduceLROnPlateau(monitor='val_loss', factor=0.2, patience=10, verbose=1, mode='auto', epsilon=0.001, cooldown=0, min_lr=0)
 
 tensorboard = TensorBoard(log_dir='./logs', histogram_freq=10, write_graph=True, write_images=True)
 
 
-# In[12]:
+# In[ ]:
 
 #training model
 
 model = create_model()
-model.fit_generator(train_generator, samples_per_epoch=len(X_train), nb_epoch=300, verbose=1, 
+hist = model.fit_generator(train_generator, samples_per_epoch=len(X_train), nb_epoch=300, verbose=1, 
                     callbacks=[early_stopping, model_checkpoint, learningrate_schedule, tensorboard], 
                     validation_data=valid_generator, nb_val_samples=len(X_valid), nb_worker=4, pickle_safe=True)
+#print(hist.history)
 
 
 # In[ ]:
