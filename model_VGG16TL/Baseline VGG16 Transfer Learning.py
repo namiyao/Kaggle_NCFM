@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[2]:
+# In[1]:
 
 import os, random, glob
 import numpy as np
@@ -16,7 +16,7 @@ from matplotlib import ticker
 import seaborn as sns
 get_ipython().magic(u'matplotlib inline')
 
-from keras.models import Sequential, Model
+from keras.models import Sequential, Model, load_model
 from keras.layers import GlobalAveragePooling2D, Flatten, Dropout, Dense
 from keras.optimizers import Adam
 from keras.callbacks import EarlyStopping, ModelCheckpoint, ReduceLROnPlateau, TensorBoard
@@ -25,7 +25,7 @@ from keras.utils import np_utils
 from keras import backend as K
 
 
-# In[4]:
+# In[2]:
 
 TRAIN_DIR = '../data/train/'
 TEST_DIR = '../data/test_stg1/'
@@ -36,11 +36,25 @@ BatchSize = 64
 LearningRate = 1e-4
 
 
-# In[5]:
+# In[3]:
 
 #Loading data
 
 import pickle
+
+def get_images(fish):
+    """Load files from train folder"""
+    fish_dir = TRAIN_DIR+'{}'.format(fish)
+    images = [fish+'/'+im for im in os.listdir(fish_dir)]
+    return images
+
+def read_image(src):
+    """Read and resize individual images"""
+    im = Image.open(src)
+    im = im.resize((COLS, ROWS), Image.BILINEAR)
+    im = np.asarray(im)
+    return im
+    
 if os.path.exists('../data/data_train_{}_{}.pickle'.format(ROWS, COLS)):
     print ('Exist data_train_{}_{}.pickle. Loading data from file.'.format(ROWS, COLS))
     with open('../data/data_train_{}_{}.pickle'.format(ROWS, COLS), 'rb') as f:
@@ -49,19 +63,6 @@ if os.path.exists('../data/data_train_{}_{}.pickle'.format(ROWS, COLS)):
     y_train = data_train['y_train']
 else:
     print ('Loading data from original images. Generating data_train_{}_{}.pickle.'.format(ROWS, COLS))
-
-    def get_images(fish):
-        """Load files from train folder"""
-        fish_dir = TRAIN_DIR+'{}'.format(fish)
-        images = [fish+'/'+im for im in os.listdir(fish_dir)]
-        return images
-
-    def read_image(src):
-        """Read and resize individual images"""
-        im = Image.open(src)
-        im = im.resize((COLS, ROWS), Image.BILINEAR)
-        im = np.asarray(im)
-        return im
 
     files = []
     y_train = []
@@ -97,7 +98,7 @@ else:
 X_train, X_valid, y_train, y_valid = train_test_split(X_train, y_train, test_size=0.2, random_state=None, stratify=y_train)
 
 
-# In[6]:
+# In[4]:
 
 #data preprocessing
 
@@ -121,20 +122,20 @@ valid_datagen = ImageDataGenerator(rescale=1./255)
 valid_generator = valid_datagen.flow(X_valid, y_valid, batch_size=BatchSize, shuffle=True, seed=None)
 
 
-# In[7]:
+# In[5]:
 
 #callbacks
 
-early_stopping = EarlyStopping(monitor='val_loss', min_delta=0, patience=15, verbose=1, mode='auto')        
+early_stopping = EarlyStopping(monitor='val_loss', min_delta=0, patience=25, verbose=1, mode='auto')        
 
 model_checkpoint = ModelCheckpoint(filepath='./checkpoints/weights.{epoch:03d}-{val_loss:.4f}.hdf5', monitor='val_loss', verbose=1, save_best_only=True, save_weights_only=False, mode='auto')
         
-learningrate_schedule = ReduceLROnPlateau(monitor='val_loss', factor=0.2, patience=10, verbose=1, mode='auto', epsilon=0.001, cooldown=0, min_lr=0)
+learningrate_schedule = ReduceLROnPlateau(monitor='val_loss', factor=0.1, patience=10, verbose=1, mode='auto', epsilon=0.001, cooldown=0, min_lr=0)
 
-tensorboard = TensorBoard(log_dir='./logs', histogram_freq=10, write_graph=True, write_images=True)
+tensorboard = TensorBoard(log_dir='./logs', histogram_freq=0, write_graph=True, write_images=True)
 
 
-# In[4]:
+# In[ ]:
 
 #stg1 training
 
@@ -146,7 +147,6 @@ base_model = VGG16(weights='imagenet', include_top=False)
 
 x = base_model.output
 x = GlobalAveragePooling2D()(x)
-x = Flatten()(x)
 x = Dense(256, init='glorot_normal', activation='relu')(x)
 #x = Dropout(0.5)(x)
 x = Dense(256, init='glorot_normal', activation='relu')(x)
@@ -170,10 +170,15 @@ model.fit_generator(train_generator, samples_per_epoch=len(X_train), nb_epoch=30
                     validation_data=valid_generator, nb_val_samples=len(X_valid), nb_worker=3, pickle_safe=True)
 
 
-# In[ ]:
+# In[24]:
 
 #stg2 training
 
+from keras.applications.vgg16 import VGG16
+
+optimizer = Adam(lr=LearningRate)
+
+base_model = VGG16(weights='imagenet', include_top=False)
 # at this point, the top layers are well trained and we can start fine-tuning
 # convolutional layers from inception V3. We will freeze the bottom N layers
 # and train the remaining top layers.
@@ -201,16 +206,14 @@ model.fit_generator(train_generator, samples_per_epoch=len(X_train), nb_epoch=30
                     validation_data=valid_generator, nb_val_samples=len(X_valid), nb_worker=3, pickle_safe=True)
 
 
-# In[8]:
+# In[6]:
 
-#resume stg1 training
-
-from keras.models import load_model
+#resume training
 
 files = glob.glob('./checkpoints/*')
 val_losses = [float(f.split('-')[-1][:-5]) for f in files]
 index = val_losses.index(min(val_losses))
-
+print('Loading model from checkpoints file ' + files[index])
 model = load_model(files[index])
 
 model.fit_generator(train_generator, samples_per_epoch=len(X_train), nb_epoch=300, verbose=1, 
@@ -218,29 +221,50 @@ model.fit_generator(train_generator, samples_per_epoch=len(X_train), nb_epoch=30
                     validation_data=valid_generator, nb_val_samples=len(X_valid), nb_worker=3, pickle_safe=True)
 
 
-# In[1]:
-
-
-
-
-# In[ ]:
+# In[9]:
 
 #test submission
 
-test_files = [im for im in os.listdir(TEST_DIR)]
-test = np.ndarray((len(test_files), ROWS, COLS, CHANNELS), dtype=np.uint8)
+import datetime
 
-for i, im in enumerate(test_files): 
-    test[i] = read_image(TEST_DIR+im) / 255.
+if os.path.exists('../data/data_test_{}_{}.pickle'.format(ROWS, COLS)):
+    print ('Exist data_test_{}_{}.pickle. Loading test data from file.'.format(ROWS, COLS))
+    with open('../data/data_test_{}_{}.pickle'.format(ROWS, COLS), 'rb') as f:
+        data_test = pickle.load(f)
+    X_test = data_test['X_test']
+    test_files = data_test['test_files']
+else:
+    print ('Loading test data from original images. Generating data_test_{}_{}.pickle.'.format(ROWS, COLS))
+
+    test_files = [im for im in os.listdir(TEST_DIR)]
+    X_test = np.ndarray((len(test_files), ROWS, COLS, 3), dtype=np.uint8)
+
+    for i, im in enumerate(test_files): 
+        X_test[i] = read_image(TEST_DIR+im)
+        if i%300 == 0: print('Processed {} of {}'.format(i, len(test_files)))
+            
+    data_test = {'X_test': X_train,'test_files': test_files }
     
-test_preds = model.predict(x, batch_size=BatchSize, verbose=1)
+    with open('../data/data_test_{}_{}.pickle'.format(ROWS, COLS), 'wb') as f:
+        pickle.dump(data_test, f)
+            
+X_test = X_test / 255.
+
+files = glob.glob('./checkpoints/*')
+val_losses = [float(f.split('-')[-1][:-5]) for f in files]
+index = val_losses.index(min(val_losses))
+model = load_model(files[index])
+
+test_preds = model.predict(X_test, batch_size=BatchSize, verbose=1)
 
 submission = pd.DataFrame(test_preds, columns=FISH_CLASSES)
 submission.insert(0, 'image', test_files)
 submission.head()
 
-
-# In[ ]:
+now = datetime.datetime.now()
+info = 'VGG16TF_' + '{:.4f}'.format(min(val_losses))
+sub_file = 'submission_' + info + '_' + str(now.strftime("%Y-%m-%d-%H-%M")) + '.csv'
+submission.to_csv(sub_file, index=False)
 
 ###clear log an checkpoints folder
 
@@ -255,4 +279,3 @@ for f in files:
 files = glob.glob('./logs/*')
 for f in files:
     os.remove(f)
-
