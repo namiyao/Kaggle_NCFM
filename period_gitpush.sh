@@ -1,11 +1,12 @@
 #!/bin/bash
 #auto git push every 30 minutes
 
-seconds=1800
+seconds=180
 
 for i in {1..100}
 do
-    echo Time $i
+    echo Time $i -------------------------------------------------------------------------------------------
+    date
     git add .
     git commit -m "auto"
     git push
