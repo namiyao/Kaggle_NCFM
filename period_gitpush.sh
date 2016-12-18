@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-seconds=10
+seconds=1800
 
 for i in {1..100}
 do
