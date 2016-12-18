@@ -12,6 +12,7 @@ bin-release/
 /*/.ipynb_checkpoints
 /*/.DS_store
 nohup.out
+/model_VGG16TL/checkpoints
 
 # Executables
 *.swf
