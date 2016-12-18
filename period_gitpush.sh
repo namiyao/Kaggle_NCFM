@@ -1,5 +1,5 @@
 #!/bin/bash
-
+#auto git push every 30 minutes
 
 seconds=1800
 
