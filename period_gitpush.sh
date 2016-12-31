@@ -1,7 +1,7 @@
 #!/bin/bash
 #auto git push every 30 minutes
 
-seconds=180
+seconds=1800
 
 for i in {1..100}
 do
