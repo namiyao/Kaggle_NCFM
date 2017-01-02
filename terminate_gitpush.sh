@@ -10,7 +10,7 @@ do
     if  [ $status = $status_terminate ]; then
         echo Terminate ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         date
-        aws s3 cp ~/Kaggle_NCFM s3://disneydsy/Kaggle_NCFM --recursive --exclude "data/*"
+        aws s3 sync ~/Kaggle_NCFM s3://disneydsy/Kaggle_NCFM --recursive --exclude "data/*"
         git add .
         git commit -m "auto_terminate"
         git push
