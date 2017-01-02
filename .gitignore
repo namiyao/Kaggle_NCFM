@@ -11,7 +11,7 @@ bin-release/
 /data/
 /*/.ipynb_checkpoints
 /*/.DS_store
-/model_VGG16TL/checkpoints
+/*/checkpoints
 
 # Executables
 *.swf
