@@ -35,3 +35,52 @@ Sun Jan  1 05:55:36 UTC 2017
  1 file changed, 2 insertions(+)
 To git@github.com:namiyao/Kaggle_NCFM.git
    38c3178..258c8d0  master -> master
+Time 1 ---------------------------------------
+Sun Jan  1 06:30:26 UTC 2017
+[master 82f80e6] auto_period
+ 2 files changed, 3 insertions(+), 1 deletion(-)
+To git@github.com:namiyao/Kaggle_NCFM.git
+   9707dc1..82f80e6  master -> master
+Time 2 ---------------------------------------
+Sun Jan  1 07:00:29 UTC 2017
+[master 67c5cdf] auto_period
+ 13 files changed, 61 insertions(+), 16002 deletions(-)
+ delete mode 100644 model_VGG16TL/Baseline VGG16 Transfer Learning.html
+ delete mode 100644 model_VGG16TL/Baseline VGG16 Transfer Learning.py
+ delete mode 100644 model_VGG16TL/logs/events.out.tfevents.1482028895.ip-172-31-60-92
+ delete mode 100644 model_VGG16TL/logs/events.out.tfevents.1482035741.ip-172-31-60-92
+ delete mode 100644 model_VGG16TL/logs/events.out.tfevents.1482043189.ip-172-31-60-92
+ delete mode 100644 model_VGG16TL/logs/events.out.tfevents.1482043923.ip-172-31-60-92
+ delete mode 100644 model_VGG16TL/logs/events.out.tfevents.1482047071.ip-172-31-60-92
+ delete mode 100644 model_VGG16TL/logs/events.out.tfevents.1482047697.ip-172-31-60-92
+ create mode 100644 model_VGG16TL/logs/events.out.tfevents.1483253075.ip-172-31-31-7
+ delete mode 100644 model_VGG16TL/submission_VGG16TF_0.0268_2016-12-19-00-56.csv
+ delete mode 100644 model_VGG16TL/submission_VGG16TF_0.8680_2016-12-18-04-31.csv
+To git@github.com:namiyao/Kaggle_NCFM.git
+   82f80e6..67c5cdf  master -> master
+Time 3 ---------------------------------------
+Sun Jan  1 07:30:32 UTC 2017
+[master 61936b8] auto_period
+ 6 files changed, 88 insertions(+), 177 deletions(-)
+ create mode 100644 model_VGG16TL/logs/events.out.tfevents.1483255517.ip-172-31-31-7
+ create mode 100644 model_VGG16TL/logs/events.out.tfevents.1483255566.ip-172-31-31-7
+ create mode 100644 model_VGG16TL/weights.015-0.0268.hdf5
+remote: error: GH001: Large files detected. You may want to try Git Large File Storage - https://git-lfs.github.com.        
+remote: error: Trace: 7c9333022c9018bfecca070852c31709        
+remote: error: See http://git.io/iEPt8g for more information.        
+remote: error: File model_VGG16TL/weights.015-0.0268.hdf5 is 112.48 MB; this exceeds GitHub's file size limit of 100.00 MB        
+To git@github.com:namiyao/Kaggle_NCFM.git
+ ! [remote rejected] master -> master (pre-receive hook declined)
+error: failed to push some refs to 'git@github.com:namiyao/Kaggle_NCFM.git'
+Time 4 ---------------------------------------
+Sun Jan  1 08:01:42 UTC 2017
+[master 0a7759b] auto_period
+ 3 files changed, 49 insertions(+), 7 deletions(-)
+ create mode 100644 model_VGG16TL/logs/events.out.tfevents.1483255932.ip-172-31-31-7
+remote: error: GH001: Large files detected. You may want to try Git Large File Storage - https://git-lfs.github.com.        
+remote: error: Trace: 9ded0a594230550ce4a4256215a183fc        
+remote: error: See http://git.io/iEPt8g for more information.        
+remote: error: File model_VGG16TL/weights.015-0.0268.hdf5 is 112.48 MB; this exceeds GitHub's file size limit of 100.00 MB        
+To git@github.com:namiyao/Kaggle_NCFM.git
+ ! [remote rejected] master -> master (pre-receive hook declined)
+error: failed to push some refs to 'git@github.com:namiyao/Kaggle_NCFM.git'

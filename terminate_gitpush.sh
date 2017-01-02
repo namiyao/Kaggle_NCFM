@@ -6,7 +6,7 @@ status_terminate='"marked-for-termination"'
 
 for i in {1..34560}
 do
-    status=$(aws ec2 describe-spot-instance-requests --filters "Name=spot-instance-request-id,Values=sir-y7pg4e4k"| jq '.SpotInstanceRequests[0].Status.Code')
+    status=$(aws ec2 describe-spot-instance-requests --filters "Name=spot-instance-request-id,Values=sfr-c8851d21-89b1-437d-b9ef-8be2c6a37bdf"| jq '.SpotInstanceRequests[0].Status.Code')
     if  [ $status = $status_terminate ]; then
         echo Terminate ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         date
