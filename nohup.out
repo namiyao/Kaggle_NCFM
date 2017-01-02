@@ -43,6 +43,7 @@ To git@github.com:namiyao/Kaggle_NCFM.git
    9707dc1..82f80e6  master -> master
 Time 2 ---------------------------------------
 Sun Jan  1 07:00:29 UTC 2017
+<<<<<<< HEAD
 [master 67c5cdf] auto_period
  13 files changed, 61 insertions(+), 16002 deletions(-)
  delete mode 100644 model_VGG16TL/Baseline VGG16 Transfer Learning.html
@@ -84,3 +85,5 @@ remote: error: File model_VGG16TL/weights.015-0.0268.hdf5 is 112.48 MB; this exc
 To git@github.com:namiyao/Kaggle_NCFM.git
  ! [remote rejected] master -> master (pre-receive hook declined)
 error: failed to push some refs to 'git@github.com:namiyao/Kaggle_NCFM.git'
+=======
+>>>>>>> 67c5cdf43179f1451ed463fcd792aaefbbfa888a
