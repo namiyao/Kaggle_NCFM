@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[5]:
+# In[1]:
 
 import os, random, glob
 import numpy as np
@@ -16,8 +16,8 @@ from matplotlib import ticker
 import seaborn as sns
 get_ipython().magic(u'matplotlib inline')
 
-from keras.models import Sequential, Model,load_model
-from keras.layers import Convolution2D, BatchNormalization, LeakyReLU, GlobalAveragePooling2D, Flatten, Dropout, Dense
+from keras.models import Sequential, Model, load_model
+from keras.layers import GlobalAveragePooling2D, Flatten, Dropout, Dense
 from keras.optimizers import Adam
 from keras.callbacks import EarlyStopping, ModelCheckpoint, ReduceLROnPlateau, TensorBoard
 from keras.preprocessing.image import ImageDataGenerator
@@ -30,8 +30,8 @@ from keras import backend as K
 TRAIN_DIR = '../data/train/'
 TEST_DIR = '../data/test_stg1/'
 FISH_CLASSES = ['ALB', 'BET', 'DOL', 'LAG', 'NoF', 'OTHER', 'SHARK', 'YFT']
-ROWS = 256
-COLS = 256
+ROWS = 224
+COLS = 224
 BatchSize = 64
 LearningRate = 1e-4
 
@@ -41,6 +41,20 @@ LearningRate = 1e-4
 #Loading data
 
 import pickle
+
+def get_images(fish):
+    """Load files from train folder"""
+    fish_dir = TRAIN_DIR+'{}'.format(fish)
+    images = [fish+'/'+im for im in os.listdir(fish_dir)]
+    return images
+
+def read_image(src):
+    """Read and resize individual images"""
+    im = Image.open(src)
+    im = im.resize((COLS, ROWS), Image.BILINEAR)
+    im = np.asarray(im)
+    return im
+    
 if os.path.exists('../data/data_train_{}_{}.pickle'.format(ROWS, COLS)):
     print ('Exist data_train_{}_{}.pickle. Loading data from file.'.format(ROWS, COLS))
     with open('../data/data_train_{}_{}.pickle'.format(ROWS, COLS), 'rb') as f:
@@ -49,19 +63,6 @@ if os.path.exists('../data/data_train_{}_{}.pickle'.format(ROWS, COLS)):
     y_train = data_train['y_train']
 else:
     print ('Loading data from original images. Generating data_train_{}_{}.pickle.'.format(ROWS, COLS))
-
-    def get_images(fish):
-        """Load files from train folder"""
-        fish_dir = TRAIN_DIR+'{}'.format(fish)
-        images = [fish+'/'+im for im in os.listdir(fish_dir)]
-        return images
-
-    def read_image(src):
-        """Read and resize individual images"""
-        im = Image.open(src)
-        im = im.resize((COLS, ROWS), Image.BILINEAR)
-        im = np.asarray(im)
-        return im
 
     files = []
     y_train = []
@@ -99,72 +100,6 @@ X_train, X_valid, y_train, y_valid = train_test_split(X_train, y_train, test_siz
 
 # In[4]:
 
-#create my VGG16-alike model
-
-optimizer = Adam(lr=LearningRate)
-
-def create_model():
-    model = Sequential()
-
-    model.add(Convolution2D(32, 3, 3, init='he_normal', border_mode='same', dim_ordering='tf', input_shape=(ROWS, COLS, 3)))
-    model.add(BatchNormalization())
-    model.add(LeakyReLU(alpha=0.33))
-    model.add(Convolution2D(32, 3, 3, init='he_normal', border_mode='same', dim_ordering='tf', subsample=(2, 2)))
-    model.add(BatchNormalization())
-    model.add(LeakyReLU(alpha=0.33))
-    
-    model.add(Convolution2D(64, 3, 3, init='he_normal', border_mode='same', dim_ordering='tf'))
-    model.add(BatchNormalization())
-    model.add(LeakyReLU(alpha=0.33))
-    model.add(Convolution2D(64, 3, 3, init='he_normal', border_mode='same', dim_ordering='tf', subsample=(2, 2)))
-    model.add(BatchNormalization())
-    model.add(LeakyReLU(alpha=0.33))
-
-    model.add(Convolution2D(128, 3, 3, init='he_normal', border_mode='same', dim_ordering='tf'))
-    model.add(BatchNormalization())
-    model.add(LeakyReLU(alpha=0.33))
-    model.add(Convolution2D(128, 3, 3, init='he_normal', border_mode='same', dim_ordering='tf'))
-    model.add(BatchNormalization())
-    model.add(LeakyReLU(alpha=0.33))
-    model.add(Convolution2D(128, 3, 3, init='he_normal', border_mode='same', dim_ordering='tf', subsample=(2, 2)))
-    model.add(BatchNormalization())
-    model.add(LeakyReLU(alpha=0.33))
-    
-    model.add(Convolution2D(256, 3, 3, init='he_normal', border_mode='same', dim_ordering='tf'))
-    model.add(BatchNormalization())
-    model.add(LeakyReLU(alpha=0.33))
-    model.add(Convolution2D(256, 3, 3, init='he_normal', border_mode='same', dim_ordering='tf'))
-    model.add(BatchNormalization())
-    model.add(LeakyReLU(alpha=0.33))
-    model.add(Convolution2D(256, 3, 3, init='he_normal', border_mode='same', dim_ordering='tf', subsample=(2, 2)))
-    model.add(BatchNormalization())
-    model.add(LeakyReLU(alpha=0.33))
-    
-    model.add(Convolution2D(256, 3, 3, init='he_normal', border_mode='same', dim_ordering='tf'))
-    model.add(BatchNormalization())
-    model.add(LeakyReLU(alpha=0.33))
-    model.add(Convolution2D(256, 3, 3, init='he_normal', border_mode='same', dim_ordering='tf'))
-    model.add(BatchNormalization())
-    model.add(LeakyReLU(alpha=0.33))
-    model.add(Convolution2D(256, 3, 3, init='he_normal', border_mode='same', dim_ordering='tf', subsample=(2, 2)))
-    model.add(BatchNormalization())
-    model.add(LeakyReLU(alpha=0.33))
-    
-    #model.add(AveragePooling2D(pool_size=(7, 7), dim_ordering='tf'))
-    #model.add(Flatten())
-    model.add(GlobalAveragePooling2D(dim_ordering='tf'))
-    model.add(Dense(256, init='glorot_normal', activation='relu'))
-    model.add(Dropout(0.5))
-    model.add(Dense(256, init='glorot_normal', activation='relu'))
-    model.add(Dropout(0.5))
-    model.add(Dense(len(FISH_CLASSES), init='glorot_normal', activation='softmax'))
-
-    model.compile(loss='categorical_crossentropy', optimizer=optimizer)
-    return model
-
-
-# In[6]:
-
 #data preprocessing
 
 train_datagen = ImageDataGenerator(
@@ -187,39 +122,98 @@ valid_datagen = ImageDataGenerator(rescale=1./255)
 valid_generator = valid_datagen.flow(X_valid, y_valid, batch_size=BatchSize, shuffle=True, seed=None)
 
 
-# In[7]:
+# In[5]:
 
 #callbacks
 
-early_stopping = EarlyStopping(monitor='val_loss', min_delta=0, patience=15, verbose=1, mode='auto')        
+early_stopping = EarlyStopping(monitor='val_loss', min_delta=0, patience=10, verbose=1, mode='auto')        
 
 model_checkpoint = ModelCheckpoint(filepath='./checkpoints/weights.{epoch:03d}-{val_loss:.4f}.hdf5', monitor='val_loss', verbose=1, save_best_only=True, save_weights_only=False, mode='auto')
         
-learningrate_schedule = ReduceLROnPlateau(monitor='val_loss', factor=0.2, patience=10, verbose=1, mode='auto', epsilon=0.001, cooldown=0, min_lr=0)
+learningrate_schedule = ReduceLROnPlateau(monitor='val_loss', factor=0.1, patience=5, verbose=1, mode='auto', epsilon=0.001, cooldown=0, min_lr=0)
 
-tensorboard = TensorBoard(log_dir='./logs', histogram_freq=10, write_graph=True, write_images=True)
+tensorboard = TensorBoard(log_dir='./logs', histogram_freq=0, write_graph=True, write_images=True)
 
 
 # In[ ]:
 
-#training model
+#stg1 training
 
-model = create_model()
+from keras.applications.vgg16 import VGG16
+
+optimizer = Adam(lr=LearningRate)
+
+base_model = VGG16(weights='imagenet', include_top=False)
+
+x = base_model.output
+x = GlobalAveragePooling2D()(x)
+x = Dense(256, init='glorot_normal', activation='relu')(x)
+#x = Dropout(0.5)(x)
+x = Dense(256, init='glorot_normal', activation='relu')(x)
+#x = Dropout(0.5)(x)
+predictions = Dense(len(FISH_CLASSES), init='glorot_normal', activation='softmax')(x)
+
+# this is the model we will train
+model = Model(input=base_model.input, output=predictions)
+
+# first: train only the top layers (which were randomly initialized)
+# i.e. freeze all convolutional VGG16 layers
+for layer in base_model.layers:
+    layer.trainable = False
+
+# compile the model (should be done *after* setting layers to non-trainable)
+model.compile(optimizer=optimizer, loss='categorical_crossentropy', metrics=['accuracy'])
+
+# train the model on the new data for a few epochs
 model.fit_generator(train_generator, samples_per_epoch=len(X_train), nb_epoch=300, verbose=1, 
                     callbacks=[early_stopping, model_checkpoint, learningrate_schedule, tensorboard], 
                     validation_data=valid_generator, nb_val_samples=len(X_valid), nb_worker=3, pickle_safe=True)
 
 
-# In[8]:
+# In[24]:
+
+#stg2 training
+
+from keras.applications.vgg16 import VGG16
+
+optimizer = Adam(lr=LearningRate)
+
+base_model = VGG16(weights='imagenet', include_top=False)
+# at this point, the top layers are well trained and we can start fine-tuning
+# convolutional layers from inception V3. We will freeze the bottom N layers
+# and train the remaining top layers.
+
+# let's visualize layer names and layer indices to see how many layers
+# we should freeze:
+for i, layer in enumerate(base_model.layers):
+   print(i, layer.name)
+
+# we chose to train the top 2 inception blocks, i.e. we will freeze
+# the first 172 layers and unfreeze the rest:
+for layer in model.layers[:14]:
+   layer.trainable = False
+for layer in model.layers[14:]:
+   layer.trainable = True
+
+# we need to recompile the model for these modifications to take effect
+# we use SGD with a low learning rate
+model.compile(optimizer=optimizer, loss='categorical_crossentropy')
+
+# we train our model again (this time fine-tuning the top 2 inception blocks
+# alongside the top Dense layers
+model.fit_generator(train_generator, samples_per_epoch=len(X_train), nb_epoch=300, verbose=1, 
+                    callbacks=[early_stopping, model_checkpoint, learningrate_schedule, tensorboard], 
+                    validation_data=valid_generator, nb_val_samples=len(X_valid), nb_worker=3, pickle_safe=True)
+
+
+# In[ ]:
 
 #resume training
-
-from keras.models import load_model
 
 files = glob.glob('./checkpoints/*')
 val_losses = [float(f.split('-')[-1][:-5]) for f in files]
 index = val_losses.index(min(val_losses))
-
+print('Loading model from checkpoints file ' + files[index])
 model = load_model(files[index])
 
 model.fit_generator(train_generator, samples_per_epoch=len(X_train), nb_epoch=300, verbose=1, 
@@ -227,7 +221,7 @@ model.fit_generator(train_generator, samples_per_epoch=len(X_train), nb_epoch=30
                     validation_data=valid_generator, nb_val_samples=len(X_valid), nb_worker=3, pickle_safe=True)
 
 
-# In[8]:
+# In[38]:
 
 #test submission
 
@@ -269,25 +263,24 @@ submission = pd.DataFrame(test_preds, columns=FISH_CLASSES)
 submission.insert(0, 'image', test_files)
 
 now = datetime.datetime.now()
-info = 'Baseline_' + '{:.4f}'.format(min(val_losses))
+info = 'VGG16TF_' + '{:.4f}'.format(min(val_losses))
 sub_file = 'submission_' + info + '_' + str(now.strftime("%Y-%m-%d-%H-%M")) + '.csv'
 submission.to_csv(sub_file, index=False)
 
-
-# In[7]:
-
-submission.head()
-
-###clear log an checkpoints folder
+###clear checkpoints folder
 
 if not os.path.exists('./checkpoints'):
     os.mkdir('./checkpoints')
 files = glob.glob('./checkpoints/*')
 for f in files:
-    os.remove(f)
-    
-#if not os.path.exists('./logs'):
-#    os.mkdir('./logs')
+    os.remove(f)###clear logs folder
+
+if not os.path.exists('./logs'):
+    os.mkdir('./logs')
 files = glob.glob('./logs/*')
 for f in files:
     os.remove(f)
+# In[ ]:
+
+
+
