@@ -1,0 +1,24 @@
+<annotation>
+	<folder>YFT</folder>
+	<filename>img_00694.jpg</filename>
+	<source>
+		<database>Source</database>
+	</source>
+	<size>
+		<width>1280</width>
+		<height>974</height>
+		<depth>3</depth>
+	</size>
+	<segmented>Unspecified</segmented>
+	<object>
+		<name>YFT</name>
+		<pose>Unspecified</pose>
+		<truncated>Unspecified</truncated>
+		<difficult>Unspecified</difficult>
+		<bndbox>
+			<xmin>481.62906003351554</xmin>
+			<ymin>465.95599475538006</ymin>
+			<xmax>792.5487874430146</xmax>
+			<ymax>637.0889237382651</ymax>
+		</bndbox>
+	</object></annotation>

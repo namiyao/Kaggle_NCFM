@@ -1,0 +1,24 @@
+<annotation>
+	<folder>OTHER</folder>
+	<filename>img_00851.jpg</filename>
+	<source>
+		<database>Source</database>
+	</source>
+	<size>
+		<width>1280</width>
+		<height>720</height>
+		<depth>3</depth>
+	</size>
+	<segmented>Unspecified</segmented>
+	<object>
+		<name>OTHER</name>
+		<pose>Unspecified</pose>
+		<truncated>Unspecified</truncated>
+		<difficult>Unspecified</difficult>
+		<bndbox>
+			<xmin>327.9513102962628</xmin>
+			<ymin>411.95110909913996</ymin>
+			<xmax>568.3818721392286</xmax>
+			<ymax>463.2563754338314</ymax>
+		</bndbox>
+	</object></annotation>

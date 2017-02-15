@@ -1,0 +1,24 @@
+<annotation>
+	<folder>DOL</folder>
+	<filename>img_02772.jpg</filename>
+	<source>
+		<database>Source</database>
+	</source>
+	<size>
+		<width>1280</width>
+		<height>750</height>
+		<depth>3</depth>
+	</size>
+	<segmented>Unspecified</segmented>
+	<object>
+		<name>DOL</name>
+		<pose>Unspecified</pose>
+		<truncated>Unspecified</truncated>
+		<difficult>Unspecified</difficult>
+		<bndbox>
+			<xmin>135.30506513756856</xmin>
+			<ymin>296.7657562496857</ymin>
+			<xmax>397.86731049746004</xmax>
+			<ymax>452.19053367536856</ymax>
+		</bndbox>
+	</object></annotation>

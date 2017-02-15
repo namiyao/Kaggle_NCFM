@@ -1,0 +1,24 @@
+<annotation>
+	<folder>BET</folder>
+	<filename>img_06825.jpg</filename>
+	<source>
+		<database>Source</database>
+	</source>
+	<size>
+		<width>1518</width>
+		<height>854</height>
+		<depth>3</depth>
+	</size>
+	<segmented>Unspecified</segmented>
+	<object>
+		<name>BET</name>
+		<pose>Unspecified</pose>
+		<truncated>Unspecified</truncated>
+		<difficult>Unspecified</difficult>
+		<bndbox>
+			<xmin>772.2161622173253</xmin>
+			<ymin>114.7946132533709</ymin>
+			<xmax>999.263810570856</xmax>
+			<ymax>435.0334605579776</ymax>
+		</bndbox>
+	</object></annotation>

@@ -1,0 +1,24 @@
+<annotation>
+	<folder>LAG</folder>
+	<filename>img_04953.jpg</filename>
+	<source>
+		<database>Source</database>
+	</source>
+	<size>
+		<width>1280</width>
+		<height>720</height>
+		<depth>3</depth>
+	</size>
+	<segmented>Unspecified</segmented>
+	<object>
+		<name>LAG</name>
+		<pose>Unspecified</pose>
+		<truncated>Unspecified</truncated>
+		<difficult>Unspecified</difficult>
+		<bndbox>
+			<xmin>698.1540163975657</xmin>
+			<ymin>51.305266334691424</ymin>
+			<xmax>1067.8537296916656</xmax>
+			<ymax>447.16060560333995</ymax>
+		</bndbox>
+	</object></annotation>

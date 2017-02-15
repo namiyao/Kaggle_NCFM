@@ -1,0 +1,24 @@
+<annotation>
+	<folder>ALB</folder>
+	<filename>img_07150.jpg</filename>
+	<source>
+		<database>Source</database>
+	</source>
+	<size>
+		<width>1276</width>
+		<height>718</height>
+		<depth>3</depth>
+	</size>
+	<segmented>Unspecified</segmented>
+	<object>
+		<name>ALB</name>
+		<pose>Unspecified</pose>
+		<truncated>Unspecified</truncated>
+		<difficult>Unspecified</difficult>
+		<bndbox>
+			<xmin>681.9862397119341</xmin>
+			<ymin>147.8909465020576</ymin>
+			<xmax>779.6424897119341</xmax>
+			<ymax>309.04385288065845</ymax>
+		</bndbox>
+	</object></annotation>

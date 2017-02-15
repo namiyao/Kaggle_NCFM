@@ -1,0 +1,24 @@
+<annotation>
+	<folder>SHARK</folder>
+	<filename>img_02867.jpg</filename>
+	<source>
+		<database>Source</database>
+	</source>
+	<size>
+		<width>1280</width>
+		<height>720</height>
+		<depth>3</depth>
+	</size>
+	<segmented>Unspecified</segmented>
+	<object>
+		<name>SHARK</name>
+		<pose>Unspecified</pose>
+		<truncated>Unspecified</truncated>
+		<difficult>Unspecified</difficult>
+		<bndbox>
+			<xmin>472.0</xmin>
+			<ymin>439.0</ymin>
+			<xmax>626.0</xmax>
+			<ymax>513.0</ymax>
+		</bndbox>
+	</object></annotation>
