@@ -12,6 +12,7 @@ bin-release/
 /*/.ipynb_checkpoints
 /*/.DS_store
 /*/checkpoints
+/RFCN/JEPGImages/
 
 # Executables
 *.swf
