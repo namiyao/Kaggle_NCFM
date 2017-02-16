@@ -9,12 +9,12 @@
 		<height>720</height>
 		<depth>3</depth>
 	</size>
-	<segmented>Unspecified</segmented>
+	<segmented>0</segmented>
 	<object>
 		<name>OTHER</name>
 		<pose>Unspecified</pose>
-		<truncated>Unspecified</truncated>
-		<difficult>Unspecified</difficult>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
 		<bndbox>
 			<xmin>419.9989940143857</xmin>
 			<ymin>361.65182837885425</ymin>

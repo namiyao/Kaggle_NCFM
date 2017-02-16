@@ -9,12 +9,12 @@
 		<height>720</height>
 		<depth>3</depth>
 	</size>
-	<segmented>Unspecified</segmented>
+	<segmented>0</segmented>
 	<object>
 		<name>LAG</name>
 		<pose>Unspecified</pose>
-		<truncated>Unspecified</truncated>
-		<difficult>Unspecified</difficult>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
 		<bndbox>
 			<xmin>679.0402897238571</xmin>
 			<ymin>350.0829938131885</ymin>
@@ -25,8 +25,8 @@
 	<object>
 		<name>LAG</name>
 		<pose>Unspecified</pose>
-		<truncated>Unspecified</truncated>
-		<difficult>Unspecified</difficult>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
 		<bndbox>
 			<xmin>941.6025350837485</xmin>
 			<ymin>295.75977063528</ymin>

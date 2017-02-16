@@ -9,12 +9,12 @@
 		<height>720</height>
 		<depth>3</depth>
 	</size>
-	<segmented>Unspecified</segmented>
+	<segmented>0</segmented>
 	<object>
 		<name>ALB</name>
 		<pose>Unspecified</pose>
-		<truncated>Unspecified</truncated>
-		<difficult>Unspecified</difficult>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
 		<bndbox>
 			<xmin>550.0</xmin>
 			<ymin>342.0</ymin>
@@ -25,8 +25,8 @@
 	<object>
 		<name>ALB</name>
 		<pose>Unspecified</pose>
-		<truncated>Unspecified</truncated>
-		<difficult>Unspecified</difficult>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
 		<bndbox>
 			<xmin>236.0</xmin>
 			<ymin>90.0</ymin>

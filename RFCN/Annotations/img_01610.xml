@@ -9,12 +9,12 @@
 		<height>924</height>
 		<depth>3</depth>
 	</size>
-	<segmented>Unspecified</segmented>
+	<segmented>0</segmented>
 	<object>
 		<name>YFT</name>
 		<pose>Unspecified</pose>
-		<truncated>Unspecified</truncated>
-		<difficult>Unspecified</difficult>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
 		<bndbox>
 			<xmin>409.19408266699736</xmin>
 			<ymin>36.852883221561875</ymin>
@@ -25,8 +25,8 @@
 	<object>
 		<name>YFT</name>
 		<pose>Unspecified</pose>
-		<truncated>Unspecified</truncated>
-		<difficult>Unspecified</difficult>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
 		<bndbox>
 			<xmin>1000.5345996474615</xmin>
 			<ymin>54.220333935171496</ymin>

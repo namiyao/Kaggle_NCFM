@@ -9,12 +9,12 @@
 		<height>720</height>
 		<depth>3</depth>
 	</size>
-	<segmented>Unspecified</segmented>
+	<segmented>0</segmented>
 	<object>
 		<name>BET</name>
 		<pose>Unspecified</pose>
-		<truncated>Unspecified</truncated>
-		<difficult>Unspecified</difficult>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
 		<bndbox>
 			<xmin>376.15356667525225</xmin>
 			<ymin>302.87139659099705</ymin>
@@ -25,8 +25,8 @@
 	<object>
 		<name>BET</name>
 		<pose>Unspecified</pose>
-		<truncated>Unspecified</truncated>
-		<difficult>Unspecified</difficult>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
 		<bndbox>
 			<xmin>518.058346896209</xmin>
 			<ymin>166.47336903533125</ymin>
@@ -37,8 +37,8 @@
 	<object>
 		<name>BET</name>
 		<pose>Unspecified</pose>
-		<truncated>Unspecified</truncated>
-		<difficult>Unspecified</difficult>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
 		<bndbox>
 			<xmin>421.47837707418466</xmin>
 			<ymin>61.84506839480499</ymin>
@@ -49,8 +49,8 @@
 	<object>
 		<name>BET</name>
 		<pose>Unspecified</pose>
-		<truncated>Unspecified</truncated>
-		<difficult>Unspecified</difficult>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
 		<bndbox>
 			<xmin>124.1137331484785</xmin>
 			<ymin>304.98937838533965</ymin>
@@ -61,8 +61,8 @@
 	<object>
 		<name>BET</name>
 		<pose>Unspecified</pose>
-		<truncated>Unspecified</truncated>
-		<difficult>Unspecified</difficult>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
 		<bndbox>
 			<xmin>67.35182106009584</xmin>
 			<ymin>160.1194236523033</ymin>
@@ -73,8 +73,8 @@
 	<object>
 		<name>BET</name>
 		<pose>Unspecified</pose>
-		<truncated>Unspecified</truncated>
-		<difficult>Unspecified</difficult>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
 		<bndbox>
 			<xmin>32.6169196328766</xmin>
 			<ymin>123.26654043074144</ymin>
@@ -85,8 +85,8 @@
 	<object>
 		<name>BET</name>
 		<pose>Unspecified</pose>
-		<truncated>Unspecified</truncated>
-		<difficult>Unspecified</difficult>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
 		<bndbox>
 			<xmin>22.02701066116342</xmin>
 			<ymin>162.23740544664597</ymin>

@@ -9,12 +9,12 @@
 		<height>720</height>
 		<depth>3</depth>
 	</size>
-	<segmented>Unspecified</segmented>
+	<segmented>0</segmented>
 	<object>
 		<name>BET</name>
 		<pose>Unspecified</pose>
-		<truncated>Unspecified</truncated>
-		<difficult>Unspecified</difficult>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
 		<bndbox>
 			<xmin>516.3639614607348</xmin>
 			<ymin>152.91828555153836</ymin>
@@ -25,8 +25,8 @@
 	<object>
 		<name>BET</name>
 		<pose>Unspecified</pose>
-		<truncated>Unspecified</truncated>
-		<difficult>Unspecified</difficult>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
 		<bndbox>
 			<xmin>372.764795804304</xmin>
 			<ymin>303.29499294986556</ymin>
@@ -37,8 +37,8 @@
 	<object>
 		<name>BET</name>
 		<pose>Unspecified</pose>
-		<truncated>Unspecified</truncated>
-		<difficult>Unspecified</difficult>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
 		<bndbox>
 			<xmin>124.96092586621556</xmin>
 			<ymin>305.8365711030767</ymin>
@@ -49,8 +49,8 @@
 	<object>
 		<name>BET</name>
 		<pose>Unspecified</pose>
-		<truncated>Unspecified</truncated>
-		<difficult>Unspecified</difficult>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
 		<bndbox>
 			<xmin>69.893399213307</xmin>
 			<ymin>155.88346006361806</ymin>
@@ -61,8 +61,8 @@
 	<object>
 		<name>BET</name>
 		<pose>Unspecified</pose>
-		<truncated>Unspecified</truncated>
-		<difficult>Unspecified</difficult>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
 		<bndbox>
 			<xmin>33.04051599174513</xmin>
 			<ymin>120.72496227753028</ymin>
@@ -73,8 +73,8 @@
 	<object>
 		<name>BET</name>
 		<pose>Unspecified</pose>
-		<truncated>Unspecified</truncated>
-		<difficult>Unspecified</difficult>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
 		<bndbox>
 			<xmin>22.02701066116342</xmin>
 			<ymin>130.04408217263787</ymin>

@@ -9,12 +9,12 @@
 		<height>974</height>
 		<depth>3</depth>
 	</size>
-	<segmented>Unspecified</segmented>
+	<segmented>0</segmented>
 	<object>
 		<name>DOL</name>
 		<pose>Unspecified</pose>
-		<truncated>Unspecified</truncated>
-		<difficult>Unspecified</difficult>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
 		<bndbox>
 			<xmin>488.40601579397423</xmin>
 			<ymin>534.6813540566371</ymin>
@@ -25,8 +25,8 @@
 	<object>
 		<name>DOL</name>
 		<pose>Unspecified</pose>
-		<truncated>Unspecified</truncated>
-		<difficult>Unspecified</difficult>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
 		<bndbox>
 			<xmin>299.2807202857</xmin>
 			<ymin>776.1179015140085</ymin>
@@ -37,8 +37,8 @@
 	<object>
 		<name>DOL</name>
 		<pose>Unspecified</pose>
-		<truncated>Unspecified</truncated>
-		<difficult>Unspecified</difficult>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
 		<bndbox>
 			<xmin>64.38307932196571</xmin>
 			<ymin>772.5969518635885</ymin>
@@ -49,8 +49,8 @@
 	<object>
 		<name>DOL</name>
 		<pose>Unspecified</pose>
-		<truncated>Unspecified</truncated>
-		<difficult>Unspecified</difficult>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
 		<bndbox>
 			<xmin>83.49680599567428</xmin>
 			<ymin>900.3571248931142</ymin>
