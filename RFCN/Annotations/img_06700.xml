@@ -11,7 +11,7 @@
 	</size>
 	<segmented>0</segmented>
 	<object>
-		<name>OTHER</name>
+		<name>other</name>
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
@@ -23,7 +23,7 @@
 		</bndbox>
 	</object>
 	<object>
-		<name>OTHER</name>
+		<name>other</name>
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>

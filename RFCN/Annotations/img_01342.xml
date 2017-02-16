@@ -11,7 +11,7 @@
 	</size>
 	<segmented>0</segmented>
 	<object>
-		<name>SHARK</name>
+		<name>shark</name>
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>

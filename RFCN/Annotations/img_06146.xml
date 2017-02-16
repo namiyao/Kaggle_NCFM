@@ -11,7 +11,7 @@
 	</size>
 	<segmented>0</segmented>
 	<object>
-		<name>YFT</name>
+		<name>yft</name>
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>

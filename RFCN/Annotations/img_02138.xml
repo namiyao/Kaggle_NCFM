@@ -11,7 +11,7 @@
 	</size>
 	<segmented>0</segmented>
 	<object>
-		<name>BET</name>
+		<name>bet</name>
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>

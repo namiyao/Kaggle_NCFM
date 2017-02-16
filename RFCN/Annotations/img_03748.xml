@@ -11,7 +11,7 @@
 	</size>
 	<segmented>0</segmented>
 	<object>
-		<name>ALB</name>
+		<name>alb</name>
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
@@ -23,7 +23,7 @@
 		</bndbox>
 	</object>
 	<object>
-		<name>ALB</name>
+		<name>alb</name>
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
@@ -35,7 +35,7 @@
 		</bndbox>
 	</object>
 	<object>
-		<name>ALB</name>
+		<name>alb</name>
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
@@ -47,7 +47,7 @@
 		</bndbox>
 	</object>
 	<object>
-		<name>ALB</name>
+		<name>alb</name>
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
@@ -59,7 +59,7 @@
 		</bndbox>
 	</object>
 	<object>
-		<name>LAG</name>
+		<name>lag</name>
 		<pose>Unspecified</pose>
 		<truncated>0</truncated>
 		<difficult>0</difficult>
