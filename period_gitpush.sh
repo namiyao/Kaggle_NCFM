@@ -7,7 +7,7 @@ for i in {1..100}
 do
     echo Time $i ---------------------------------------
     date
-    aws s3 cp ~/Kaggle_NCFM s3://disneydsy/Kaggle_NCFM --recursive --exclude "data/*"
+    aws s3 cp ~/Kaggle_NCFM/model_bbox s3://disneydsy/model_bbox --recursive
     git add .
     git commit -m "auto_period"
     git push
