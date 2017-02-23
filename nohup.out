@@ -369,3 +369,9 @@ Completed 453 of 462 part(s) with 4 file(s) remainingCompleted 454 of 462 part(
 Completed 455 of 462 part(s) with 3 file(s) remainingCompleted 456 of 462 part(s) with 3 file(s) remainingupload: model_bbox/logs/events.out.tfevents.1487882542.ip-172-31-23-136 to s3://disneydsy/model_bbox/logs/events.out.tfevents.1487882542.ip-172-31-23-136
 Completed 457 of 462 part(s) with 2 file(s) remainingCompleted 458 of 462 part(s) with 2 file(s) remainingCompleted 459 of 462 part(s) with 2 file(s) remainingupload: model_bbox/logs/events.out.tfevents.1487876964.ip-172-31-23-136 to s3://disneydsy/model_bbox/logs/events.out.tfevents.1487876964.ip-172-31-23-136
 Completed 460 of 462 part(s) with 1 file(s) remainingCompleted 461 of 462 part(s) with 1 file(s) remainingCompleted 462 of 462 part(s) with 1 file(s) remainingupload: model_bbox/checkpoints/weights.040-0.6054.hdf5 to s3://disneydsy/model_bbox/checkpoints/weights.040-0.6054.hdf5
+[master 9d449e4] auto_period
+ 5 files changed, 1363 insertions(+), 18 deletions(-)
+ create mode 100644 model_bbox/logs/events.out.tfevents.1487882542.ip-172-31-23-136
+ create mode 100644 model_bbox/submission_BBCROP_resnet50_0.4714_2017-02-23-20-51.csv
+To git@github.com:namiyao/Kaggle_NCFM.git
+   5c17c8c..9d449e4  master -> master
