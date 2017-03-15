@@ -11,7 +11,9 @@ bin-release/
 /data/
 /*/.ipynb_checkpoints
 /*/.DS_store
-/*/checkpoints
+/*/checkpoints 
+/*/logs
+/*/res*
 /RFCN/JPEGImages/
 
 # Executables
