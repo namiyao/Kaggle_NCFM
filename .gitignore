@@ -14,8 +14,6 @@ bin-release/
 /*/checkpoint* 
 /*/log*
 /*/res*
-/*/checkpoint*
-/*/log*
 /RFCN/JPEGImages/
 
 # Executables
