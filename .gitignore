@@ -13,7 +13,9 @@ bin-release/
 /*/.DS_store
 /*/checkpoint* 
 /*/log*
-/*/res*
+/*/*/checkpoint
+/*/*/log
+/*/*/output
 /RFCN/JPEGImages/
 
 # Executables
