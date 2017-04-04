@@ -14,6 +14,7 @@ bin-release/
 /*/.DS_store
 /*/checkpoint* 
 /*/log*
+/*/output*
 /*/*/checkpoint
 /*/*/log
 /*/*/output
